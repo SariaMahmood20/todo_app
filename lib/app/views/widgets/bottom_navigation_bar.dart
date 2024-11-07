@@ -1,59 +1,101 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:simple_floating_bottom_nav_bar/floating_bottom_nav_bar.dart';
-import 'package:simple_floating_bottom_nav_bar/floating_item.dart';
+import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 import 'package:todo_app/app/constants/svg_icons.dart';
 import 'package:todo_app/app/resources/app_strings.dart';
 import 'package:todo_app/app/resources/app_theme.dart';
+import 'package:todo_app/app/views/widgets/my_appbar.dart';
 import 'package:todo_app/features/home/presentation/view/home_view.dart';
+import 'package:todo_app/app/utils/utils_functions.dart';
 
-class MyBottomNavigationBar extends StatelessWidget {
+class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({super.key});
 
-  final List<FloatingBottomNavItem> items = [
-    FloatingBottomNavItem(
-      inactiveIcon: SvgPicture.asset(SvgIcons.homeInactve),
-      activeIcon: SvgPicture.asset(SvgIcons.homeActive),
-      label: AppStrings.index
+  @override
+  State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
+}
+
+class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+  int selected = 0;
+
+  final controller = PageController();
+
+  final List<BottomBarItem> items = [
+    BottomBarItem(
+      icon: SvgPicture.asset(SvgIcons.homeInactve), 
+      title: Text(AppStrings.index),
+      selectedIcon: SvgPicture.asset(SvgIcons.homeActive)
       ),
-    FloatingBottomNavItem(
-      inactiveIcon: SvgPicture.asset(SvgIcons.calenderInactive),
-      activeIcon: SvgPicture.asset(SvgIcons.calenderActive),
-      label: AppStrings.calender
+    BottomBarItem(
+      icon: SvgPicture.asset(SvgIcons.calenderInactive), 
+      title: Text(AppStrings.calender),
+      selectedIcon: SvgPicture.asset(SvgIcons.calenderActive)
       ),
-    FloatingBottomNavItem(
-      inactiveIcon: SvgPicture.asset(SvgIcons.focusInactive),
-      activeIcon: SvgPicture.asset(SvgIcons.focusActive),
-      label: AppStrings.focus
+    BottomBarItem(
+      icon: SvgPicture.asset(SvgIcons.focusInactive), 
+      title: Text(AppStrings.focus),
+      selectedIcon: SvgPicture.asset(SvgIcons.focusActive)
       ),
-    FloatingBottomNavItem(
-      inactiveIcon: SvgPicture.asset(SvgIcons.user),
-      label: AppStrings.profile,
+    BottomBarItem(
+      icon: SvgPicture.asset(SvgIcons.user), 
+      title: Text(AppStrings.profile)
       )
   ];
 
   final List<Widget> pages = [
     const HomeView(),
+    Container(color: Colors.blue,),
+    Container(color: Colors.red,),
+    Container(color: Colors.green,),
+  ];
+
+  final List<String> titles = [
+    AppStrings.index,
+    AppStrings.calender,
+    AppStrings.focusMode,
+    AppStrings.profile
   ];
 
   @override
   Widget build(BuildContext context) {
     final styles = Theme.of(context).extension<AppTheme>()!;
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 20.w),
-        child: FloatingBottomNavBar(
-          pages: pages, 
-          items: items ,
-          initialPageIndex: 0,
-          backgroundColor: styles.neutralColor,
-          radius: 50,
-          width: double.infinity,
-          height: 70.h,
-          ),
-      ),
+      appBar: MyAppbar(appbarTitle: titles[selected],),
+      bottomNavigationBar: StylishBottomBar(
+        items: items, 
+        option: AnimatedBarOptions(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          barAnimation: BarAnimation.blink
+        ),
+        backgroundColor: Colors.transparent,
+        fabLocation: StylishBarFabLocation.center,
+        currentIndex: selected,
+        notchStyle: NotchStyle.circle,
+        onTap: (index){
+          if(index == selected) return;
+          controller.jumpToPage(index);
+          setState(() {
+            selected = index;
+          });
+        },
+        ),
+      body: SafeArea(
+        child: PageView(
+          controller: controller,
+          children: const [
+            HomeView(),
+          ],
+        ),
+        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){UtilsFunctions.addTask(context);},
+        shape: const CircleBorder(),
+        backgroundColor: styles.neutralColor,
+        child:  Icon(Icons.add, color: styles.white,),
+        ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

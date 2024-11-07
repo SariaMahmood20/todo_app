@@ -10,9 +10,12 @@ class MyAppbar extends StatelessWidget implements PreferredSize{
   @override
   Widget build(BuildContext context) {
     final styles = Theme.of(context).extension<AppTheme>()!;
-    return AppBar(
-      title: Text(appbarTitle, style: styles.lato20w600,),
-      centerTitle: true,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.h),
+      child: AppBar(
+        title: Text(appbarTitle, style: styles.lato20w600,),
+        centerTitle: true,
+      ),
     );
   }
   

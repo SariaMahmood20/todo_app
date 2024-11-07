@@ -576,14 +576,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
-  simple_floating_bottom_nav_bar:
-    dependency: "direct dev"
-    description:
-      name: simple_floating_bottom_nav_bar
-      sha256: e92222ee382cecf6c870613da1dab3bd34f45a2b022354b3312c1b4b8084017c
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -621,6 +613,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  stylish_bottom_bar:
+    dependency: "direct dev"
+    description:
+      name: stylish_bottom_bar
+      sha256: ca72557a5bd8f44caae9017eb3a73002e9189d7a9d2fac598fa55be13724f32b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   term_glyph:
     dependency: transitive
     description:

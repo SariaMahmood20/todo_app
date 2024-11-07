@@ -2,8 +2,8 @@ const String _iconsPath = "assets/svg_icons/";
 
 class SvgIcons{
   static String aboutUs = "${_iconsPath}about_us.svg";
-  static String calenderActive = "${_iconsPath}calender_active.svg";
-  static String calenderInactive = "${_iconsPath}calender_inactive.svg";
+  static String calenderActive = "${_iconsPath}calendar_active.svg";
+  static String calenderInactive = "${_iconsPath}calendar_inactive.svg";
   static String categoryTag = "${_iconsPath}category_tag.svg";
   static String changeColor = "${_iconsPath}change_color.svg";
   static String changeLanguage = "${_iconsPath}change_lanaguage.svg";
