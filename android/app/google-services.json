@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "490397383942",
+    "project_id": "uptodo-70ce1",
+    "storage_bucket": "uptodo-70ce1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490397383942:android:9c3b2089c59ecde112b287",
+        "android_client_info": {
+          "package_name": "up_todo.application1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ8O8YUjhmWQ8hi6wueaaJH8fJXg4c9do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

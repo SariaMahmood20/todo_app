@@ -1,0 +1,46 @@
+const String _iconsPath = "assets/svg_icons/";
+
+class SvgIcons{
+  static String aboutUs = "${_iconsPath}about_us.svg";
+  static String calenderActive = "${_iconsPath}calender_active.svg";
+  static String calenderInactive = "${_iconsPath}calender_inactive.svg";
+  static String categoryTag = "${_iconsPath}category_tag.svg";
+  static String changeColor = "${_iconsPath}change_color.svg";
+  static String changeLanguage = "${_iconsPath}change_lanaguage.svg";
+  static String changePassword = "${_iconsPath}change_password.svg";
+  static String changePfp = "${_iconsPath}change_pfp.svg";
+  static String createNew = "${_iconsPath}create_new.svg";
+  static String delete = "${_iconsPath}delete.svg";
+  static String design = "${_iconsPath}design.svg";
+  static String edit = "${_iconsPath}edit.svg";
+  static String faq = "${_iconsPath}faq.svg";
+  static String feeback = "${_iconsPath}feeback.svg";
+  static String fingerPrint = "${_iconsPath}finger_print.svg";
+  static String focusActive = "${_iconsPath}focus_active.svg";
+  static String focusInactive = "${_iconsPath}focus_inactive.svg";
+  static String grocery = "${_iconsPath}grocery.svg";
+  static String health = "${_iconsPath}health.svg";
+  static String homeActive = "${_iconsPath}home_active.svg";
+  static String homeInactve = "${_iconsPath}home_inactive.svg";
+  static String home = "${_iconsPath}home.svg";
+  static String imporCalender = "${_iconsPath}import_calender.svg";
+  static String logout = "${_iconsPath}logout.svg";
+  static String movie = "${_iconsPath}movie.svg";
+  static String music = "${_iconsPath}music.svg";
+  static String priorityFlag = "${_iconsPath}priority_flag.svg";
+  static String repeat = "${_iconsPath}repeat.svg";
+  static String sendTask = "${_iconsPath}send_task.svg";
+  static String settings = "${_iconsPath}settings.svg";
+  static String social = "${_iconsPath}social.svg";
+  static String sortTasks = "${_iconsPath}sort_tasks.svg";
+  static String sport = "${_iconsPath}sport.svg";
+  static String subTask = "${_iconsPath}sub_task.svg";
+  static String supportUs = "${_iconsPath}support_us.svg";
+  static String timer = "${_iconsPath}timer.svg";
+  static String typography = "${_iconsPath}typography.svg";
+  static String university = "${_iconsPath}unversity.svg";
+  static String user = "${_iconsPath}user.svg";
+  static String work = "${_iconsPath}work.svg";
+  static String google = "${_iconsPath}google.svg";
+  static String apple = "${_iconsPath}apple.svg";
+}
