@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/app/view_models/date_provider.dart';
 
 import 'package:todo_app/features/auth/presentation/widgets/finger_print_auth.dart';
 import 'package:todo_app/features/home/presentation/widgets/add_task.dart';
@@ -23,8 +25,13 @@ class UtilsFunctions{
       useSafeArea: true,
       sheetAnimationStyle: AnimationStyle(curve: Curves.bounceIn),
       builder: (context){
-        return AddTask();
+        return ChangeNotifierProvider(
+          create: (context)=>DateProvider(),
+          child: AddTask()
+          );
       }
       );
   }
+
+  
 }

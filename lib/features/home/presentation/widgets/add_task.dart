@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import 'package:todo_app/app/resources/app_strings.dart';
 import 'package:todo_app/app/resources/app_theme.dart';
 import 'package:todo_app/app/constants/svg_icons.dart';
 import 'package:todo_app/features/home/presentation/widgets/add_task_fields.dart';
+import 'package:todo_app/app/view_models/date_provider.dart';
 
 class AddTask extends StatelessWidget {
 
@@ -16,6 +18,7 @@ class AddTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateProvider = Provider.of<DateProvider>(context);
     final styles = Theme.of(context).extension<AppTheme>()!;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 30.h),
@@ -27,24 +30,31 @@ class AddTask extends StatelessWidget {
           SizedBox(height: 15.h,),
           AddTaskFields(controller: descriptionController, hintText: AppStrings.description),
           SizedBox(height: 25.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 136.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.timer)),
-                    IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.categoryTag)),
-                    IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.priorityFlag))
-                  ],
-                  
-                ),
-              ),
-              IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.sendTask))
-
-            ],
+          ChangeNotifierProvider(
+            create: (context)=> DateProvider(),
+            child: Consumer<DateProvider>(
+              builder: (context, provider, child){
+                return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 136.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed: (){provider.pickDate(context);}, icon: SvgPicture.asset(SvgIcons.timer)),
+                        IconButton(onPressed: (){provider.categoryTag(context);}, icon: SvgPicture.asset(SvgIcons.categoryTag)),
+                        IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.priorityFlag))
+                      ],
+                      
+                    ),
+                  ),
+                  IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.sendTask))
+              
+                ],
+              );
+              },
+            ),
           )
           
         ],

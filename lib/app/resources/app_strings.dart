@@ -11,8 +11,8 @@ class AppStrings{
   static String createAccount = "CREATE ACCOUNT";
   static String skip = "SKIP";
   static String loginLower = "Login";
-  static String username = "Username";
-  static String enterYourUsername = "Enter your username";
+  static String email = "Email";
+  static String enterYourEmail = "Enter your email";
   static String password = "Password";
   static String enterYourPassword = "Enter your password";
   static String loginWithGoogle = "Login with Google";

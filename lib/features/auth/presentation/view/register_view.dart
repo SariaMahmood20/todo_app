@@ -8,6 +8,7 @@ import 'package:todo_app/app/constants/svg_icons.dart';
 import 'package:todo_app/app/views/widgets/button.dart';
 import 'package:todo_app/app/views/widgets/custom_form_field.dart';
 import 'package:todo_app/features/auth/presentation/view_model/local_auth_view_model.dart';
+import 'package:todo_app/features/auth/presentation/view_model/auth_view_model.dart';
 
 import 'package:todo_app/features/auth/presentation/widgets/login_with.dart';
 import 'package:todo_app/features/auth/presentation/widgets/text_row.dart';
@@ -50,14 +51,21 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     final styles = Theme.of(context).extension<AppTheme>()!;
-    return ChangeNotifierProvider(
-      create: (context) => LocalAuthViewModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LocalAuthViewModel>(create: (context)=> LocalAuthViewModel()),
+        ChangeNotifierProvider<AuthViewModel>(create: (context)=> AuthViewModel())
+      ],
       child: SafeArea(
           child: Scaffold(
         appBar: AppBar(),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.h),
-          child: Column(
+          child: Consumer<LocalAuthViewModel>(
+            builder: (context, localAuthProvider, child){
+              return Consumer<AuthViewModel>(
+                builder: (context, authProvider, child){
+                  return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -71,8 +79,8 @@ class _RegisterViewState extends State<RegisterView> {
                 height: 60.h,
               ),
               CustomFormField(
-                  labelText: AppStrings.username,
-                  hintText: AppStrings.enterYourUsername,
+                  labelText: AppStrings.email,
+                  hintText: AppStrings.enterYourEmail,
                   controller: _emailController),
               SizedBox(
                 height: 40.h,
@@ -91,7 +99,7 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(
                 height: 50.h,
               ),
-              Button(width: double.infinity, buttonText: AppStrings.register),
+              Button(width: double.infinity, buttonText: AppStrings.register, onPressed: (){authProvider.registerUser(_emailController.text, _passwordController.text);},),
               SizedBox(
                 height: 25.h,
               ),
@@ -127,7 +135,11 @@ class _RegisterViewState extends State<RegisterView> {
                 ],
               )
             ],
-          ),
+          );
+                },
+              );
+            },
+          )
         ),
       )),
     );

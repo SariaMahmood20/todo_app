@@ -46,7 +46,7 @@ class FingerPrintAuth extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(onPressed: (){}, child: Text(AppStrings.cancel, style: styles.lato20w600.copyWith(color: styles.neutralColor),)),
-                    Button(width: 153.w, buttonText: AppStrings.usePassword)
+                    Button(width: 153.w, buttonText: AppStrings.usePassword, onPressed: (){},)
                   ],
                 )
               ],
