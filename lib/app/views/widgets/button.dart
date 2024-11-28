@@ -13,7 +13,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     final styles = Theme.of(context).extension<AppTheme>()!;
     return GestureDetector(
-      onTap: (){onPressed;},
+      onTap: onPressed(),
       child: Container(
         width: width.w,
         height: 50.h,

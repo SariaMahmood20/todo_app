@@ -9,6 +9,7 @@ class AuthServices{
     try{
       await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     }catch(e){
+      print(e.toString()+"Saria");
       rethrow;
     }
   }

@@ -44,7 +44,7 @@ class AddTask extends StatelessWidget {
                       children: [
                         IconButton(onPressed: (){provider.pickDate(context);}, icon: SvgPicture.asset(SvgIcons.timer)),
                         IconButton(onPressed: (){provider.categoryTag(context);}, icon: SvgPicture.asset(SvgIcons.categoryTag)),
-                        IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.priorityFlag))
+                        IconButton(onPressed: (){provider.priorityTag(context);}, icon: SvgPicture.asset(SvgIcons.priorityFlag))
                       ],
                       
                     ),

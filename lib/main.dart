@@ -5,25 +5,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/app/resources/app_theme.dart'; // Import the new AppTheme file
 import 'package:provider/provider.dart';
 
-import 'package:todo_app/features/auth/presentation/view/login_view.dart';
+import 'package:todo_app/app/navigation/routes.dart';
+import 'package:todo_app/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:todo_app/features/auth/presentation/view_model/local_auth_view_model.dart';
-import 'package:todo_app/splash.dart';
-import 'package:todo_app/features/auth/presentation/view/register_view.dart';
-import 'package:todo_app/app/views/widgets/bottom_navigation_bar.dart';
 import 'package:todo_app/features/calender/presentation/view_model/date_widget_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyAZ8O8YUjhmWQ8hi6wueaaJH8fJXg4c9do",
-      appId: "1:490397383942:android:b5e7b8577f9ed02c12b287",
-      messagingSenderId: "490397383942",
-      projectId: "uptodo-70ce1",
-      databaseURL: "https://uptodo-70ce1-default-rtdb.firebaseio.com/",
-    ),
+      apiKey: "AIzaSyCFwEabtqwNFbLMez0fxGwA2RB5VfgqUJE", 
+      appId: "1:375823925981:android:acb5bbbfa83c1c7b6bd134", 
+      messagingSenderId: "375823925981", 
+      projectId: "uptodoapp-c53ad",
+      
+      )
   );
-  FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: true);
+  
   runApp(const MainApp());
 }
 
@@ -39,15 +37,16 @@ class MainApp extends StatelessWidget {
       builder: (context, child) {
         return MultiProvider(
           providers: [
+            ChangeNotifierProvider(create: (_)=>AuthViewModel()),
             ChangeNotifierProvider(create: (_)=>LocalAuthViewModel()),
             ChangeNotifierProvider(create: (_)=>DateWidgetViewModel())
           ],
-          child: MaterialApp(
+          child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: lightTheme, // Use the predefined light theme from AppTheme
             darkTheme: darkTheme, // Use the predefined dark theme from AppTheme
             themeMode: ThemeMode.system, // Follow system theme settings
-            home: RegisterView(),
+            routerConfig: Routes().router,
           ),
         );
       },

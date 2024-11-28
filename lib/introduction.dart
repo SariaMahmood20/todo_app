@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:animated_introduction/animated_introduction.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:todo_app/app/constants/images.dart';
 import 'package:todo_app/app/resources/app_strings.dart';
 import 'package:todo_app/app/resources/app_theme.dart';
-import 'package:todo_app/features/auth/presentation/view/login_view.dart';
+import 'package:todo_app/app/navigation/route_names.dart';
 
 final List<SingleIntroScreen> pages = [
   SingleIntroScreen(
@@ -35,7 +36,7 @@ class OnBoarding extends StatelessWidget {
       body: AnimatedIntroduction(
         slides: pages, 
         onDone: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const LoginView()));
+          GoRouter.of(context).pushReplacementNamed(RouteNames.login);
         },
         isFullScreen: true,
         footerGradients: [styles.neutralColor, styles.neutralColor.withOpacity(0.6)],
