@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_route.dart';
+
 import 'package:todo_app/app/view_models/date_provider.dart';
 
 import 'package:todo_app/features/auth/presentation/widgets/finger_print_auth.dart';
@@ -31,6 +34,19 @@ class UtilsFunctions{
           );
       }
       );
+  }
+
+  static showFlushBar(BuildContext context, bool isError, String message){
+    showFlushbar(
+      context: context, 
+      flushbar: Flushbar(
+        message: message,
+        backgroundColor: isError? Colors.redAccent: Colors.greenAccent,
+        messageColor: Colors.white,
+        forwardAnimationCurve: Curves.bounceInOut,
+        duration: const Duration(seconds: 3),
+      )..show(context)
+    );
   }
 
   

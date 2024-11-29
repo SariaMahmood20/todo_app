@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:todo_app/app/resources/app_strings.dart';
 import 'package:todo_app/app/resources/app_theme.dart';
 import 'package:todo_app/app/constants/svg_icons.dart';
+import 'package:todo_app/features/home/presentation/view_model/home_view_model.dart';
 import 'package:todo_app/features/home/presentation/widgets/add_task_fields.dart';
 import 'package:todo_app/app/view_models/date_provider.dart';
 
@@ -18,7 +20,6 @@ class AddTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateProvider = Provider.of<DateProvider>(context);
     final styles = Theme.of(context).extension<AppTheme>()!;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 30.h),
@@ -49,7 +50,14 @@ class AddTask extends StatelessWidget {
                       
                     ),
                   ),
-                  IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgIcons.sendTask))
+                  Consumer<HomeViewModel>(
+                    builder: (context, taskProvider, child){
+                      return IconButton(onPressed: (){
+                        taskProvider.addTask(title:  titleController.text, description: descriptionController.text, category: provider.category, priority: provider.priority, time: provider.finalDate, context: context);
+                        GoRouter.of(context).pop();
+                      }, icon: SvgPicture.asset(SvgIcons.sendTask));
+                    },
+                  )
               
                 ],
               );

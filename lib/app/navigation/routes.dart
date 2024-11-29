@@ -12,7 +12,7 @@ class Routes{
     routes: [
       GoRoute(
         name: RouteNames.splash,
-        path: '/splash',
+        path: '/',
         builder: (context, state)=>const SplashScreen()
         ),
       GoRoute(
@@ -32,7 +32,7 @@ class Routes{
         ),
         GoRoute(
         name: RouteNames.naviation,
-        path: '/',
+        path: '/navigation',
         builder: (context, state)=>MyBottomNavigationBar()
         ),
     ]

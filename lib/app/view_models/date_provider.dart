@@ -24,21 +24,31 @@ const List<Color> categoryColor = [
 ];
 
 class DateProvider with ChangeNotifier {
+  
   String formatDate(DateTime date) {
     return DateFormat('MM/dd/yyyy').format(date);
   }
 
-  DateTime leaveDate = DateTime.now();
+  String _category = "";
+  String get category=> _category;
+
+  String _priority = "";
+  String get priority=> _priority;
+  
+
+  DateTime deadlineDate = DateTime.now();
+
+  String get finalDate => deadlineDate.toString();
 
   Future<void> pickDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: leaveDate,
-      firstDate: leaveDate.subtract(const Duration(days: 7)),
+      initialDate: deadlineDate,
+      firstDate: deadlineDate.subtract(const Duration(days: 7)),
       lastDate: DateTime(2200),
     );
-    if (pickedDate != null && pickedDate != leaveDate) {
-      leaveDate = pickedDate;
+    if (pickedDate != null && pickedDate != deadlineDate) {
+      deadlineDate = pickedDate;
       notifyListeners();
     }
   }
@@ -50,6 +60,7 @@ class DateProvider with ChangeNotifier {
     );
     if (selectedCategory != null) {
       print("Selected Category: $selectedCategory");
+      _category = selectedCategory.toString();
     }
   }
 
@@ -60,6 +71,7 @@ class DateProvider with ChangeNotifier {
       );
       if(selectedPriority!=null){
         print("Selected Priority: $selectedPriority");
+        _priority = selectedPriority.toString();
       }
   }
 }

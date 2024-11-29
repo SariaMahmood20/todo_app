@@ -45,7 +45,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   ];
 
   final List<Widget> pages = [
-    const HomeView(),
+    HomeView(),
     Container(color: Colors.blue,),
     Container(color: Colors.red,),
     Container(color: Colors.green,),
@@ -84,7 +84,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       body: SafeArea(
         child: PageView(
           controller: controller,
-          children: const [
+          children: [
             HomeView(),
           ],
         ),

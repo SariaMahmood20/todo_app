@@ -28,7 +28,7 @@ class PriorityDialogBox extends StatelessWidget {
           itemCount: 10,
           itemBuilder: (context, index){
             return InkWell(
-            onTap: ()=> GoRouter.of(context).pop(index),
+            onTap: ()=> GoRouter.of(context).pop(index.toString()),
             child: Container(
               height: 35.h,
               width: 35.w,

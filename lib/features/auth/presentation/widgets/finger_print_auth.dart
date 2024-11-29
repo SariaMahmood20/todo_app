@@ -15,7 +15,6 @@ class FingerPrintAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final styles = Theme.of(context).extension<AppTheme>()!;
-    final _localAuthViewModel = LocalAuthViewModel();
 
     return ChangeNotifierProvider<LocalAuthViewModel>(
       create: (context)=> LocalAuthViewModel(),

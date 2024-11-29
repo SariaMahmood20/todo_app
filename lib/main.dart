@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/app/resources/app_theme.dart'; // Import the new AppTheme file
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import 'package:todo_app/app/navigation/routes.dart';
 import 'package:todo_app/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:todo_app/features/auth/presentation/view_model/local_auth_view_model.dart';
 import 'package:todo_app/features/calender/presentation/view_model/date_widget_view_model.dart';
+import 'package:todo_app/features/home/presentation/view_model/home_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,7 @@ void main() async {
       appId: "1:375823925981:android:acb5bbbfa83c1c7b6bd134", 
       messagingSenderId: "375823925981", 
       projectId: "uptodoapp-c53ad",
-      
+      databaseURL: "https://uptodoapp-c53ad-default-rtdb.firebaseio.com/"
       )
   );
   
@@ -37,6 +37,7 @@ class MainApp extends StatelessWidget {
       builder: (context, child) {
         return MultiProvider(
           providers: [
+            ChangeNotifierProvider(create: (_)=>HomeViewModel()),
             ChangeNotifierProvider(create: (_)=>AuthViewModel()),
             ChangeNotifierProvider(create: (_)=>LocalAuthViewModel()),
             ChangeNotifierProvider(create: (_)=>DateWidgetViewModel())
