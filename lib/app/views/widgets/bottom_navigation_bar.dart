@@ -9,6 +9,7 @@ import 'package:todo_app/app/resources/app_theme.dart';
 import 'package:todo_app/app/views/widgets/my_appbar.dart';
 import 'package:todo_app/features/home/presentation/view/home_view.dart';
 import 'package:todo_app/app/utils/utils_functions.dart';
+import 'package:todo_app/features/focus/presentation/view/focus_view.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({super.key});
@@ -45,9 +46,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   ];
 
   final List<Widget> pages = [
-    HomeView(),
+    FocusView(),
     Container(color: Colors.blue,),
-    Container(color: Colors.red,),
+    const FocusView(),
     Container(color: Colors.green,),
   ];
 

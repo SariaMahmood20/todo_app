@@ -1,17 +1,27 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/features/home/data/models/task_model.dart';
 
 class AddTaskService {
-  final DatabaseReference _databaseService = FirebaseDatabase.instance.ref("Task");
+  final DatabaseReference _taskDatabase = FirebaseDatabase.instance.ref("tasks");
+  final DatabaseReference _userDatabase = FirebaseDatabase.instance.ref("users");
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Add a new task to the database
   Future<void> writeTask(String title, String description, String category, String priority, String time) async {
     try {
-      // Generate a unique key for the task
-      String taskId = _databaseService.push().key!;
-      
-      // Save the task data under the unique key
-      await _databaseService.child(taskId).set({
+      // Get the current user
+      User? user = _auth.currentUser;
+
+      if (user == null) {
+        print("No user is logged in.");
+        return;
+      }
+
+      String taskId = _taskDatabase.push().key!; // Generate unique task ID
+
+      // Save the task data under the user’s specific tasks node
+      await _taskDatabase.child(user.uid).child(taskId).set({
         "id": taskId,
         "title": title,
         "description": description,
@@ -19,16 +29,25 @@ class AddTaskService {
         "priority": priority,
         "time": time,
       });
+
+      print("Task added successfully!");
     } catch (e) {
       print("Error writing task: $e");
     }
   }
 
-  // Retrieve all tasks from the database
+  // Retrieve all tasks from the database for the current user
   Future<List<TaskModel>> getTasks() async {
     List<TaskModel> tasks = [];
     try {
-      final snapshot = await _databaseService.get();
+      User? user = _auth.currentUser;
+      
+      if (user == null) {
+        print("No user is logged in.");
+        return tasks;
+      }
+
+      final snapshot = await _taskDatabase.child(user.uid).get();
 
       if (snapshot.exists) {
         // Convert the snapshot value to a Map
@@ -43,5 +62,98 @@ class AddTaskService {
       print("Error fetching tasks: $e");
     }
     return tasks;
+  }
+
+  // Save user data (e.g., name, email) when the user signs up or logs in
+  Future<void> saveUserData(String name, String email) async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user == null) {
+        print("No user is logged in.");
+        return;
+      }
+
+      // Save user data under the "users" node with UID as the key
+      await _userDatabase.child(user.uid).set({
+        "name": name,
+        "email": email,
+      });
+
+      print("User data saved successfully!");
+    } catch (e) {
+      print("Error saving user data: $e");
+    }
+  }
+
+  // Retrieve user data (e.g., name, email) for the logged-in user
+  Future<Map<String, String>?> getUserData() async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user == null) {
+        print("No user is logged in.");
+        return null;
+      }
+
+      final snapshot = await _userDatabase.child(user.uid).get();
+
+      if (snapshot.exists) {
+        // Convert the snapshot to a map
+        Map<String, dynamic> data = Map<String, dynamic>.from(snapshot.value as Map);
+        return {
+          "name": data['name'],
+          "email": data['email'],
+        };
+      } else {
+        print("User data not found.");
+        return null;
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+      return null;
+    }
+  }
+
+  // Remove a task from the database
+  Future<void> removeTask(String taskId) async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user == null) {
+        print("No user is logged in.");
+        return;
+      }
+
+      // Delete the task from the user's tasks node
+      await _taskDatabase.child(user.uid).child(taskId).remove();
+      print("Task removed successfully!");
+    } catch (e) {
+      print("Error removing task: $e");
+    }
+  }
+
+    Future<void> updateTask(String taskId, String title, String description, String category, String priority, String time) async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user == null) {
+        print("No user is logged in.");
+        return;
+      }
+
+      // Update the task data under the user's tasks node
+      await _taskDatabase.child(user.uid).child(taskId).update({
+        "title": title,
+        "description": description,
+        "category": category,
+        "priority": priority,
+        "time": time,
+      });
+
+      print("Task updated successfully!");
+    } catch (e) {
+      print("Error updating task: $e");
+    }
   }
 }

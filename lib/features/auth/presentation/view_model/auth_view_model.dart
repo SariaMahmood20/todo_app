@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart'; // Add GoRouter import
 
 import 'package:todo_app/app/navigation/route_names.dart';
 import 'package:todo_app/app/utils/utils_functions.dart';
+import 'package:todo_app/app/views/widgets/bottom_navigation_bar.dart';
 import 'package:todo_app/features/auth/data/services/auth_services.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -57,7 +58,7 @@ class AuthViewModel extends ChangeNotifier {
       UtilsFunctions.showFlushBar(context, false, "Login Successfully");
       notifyListeners();
       // Navigate to another screen (e.g., Home) after successful login
-      context.go(RouteNames.naviation); // Update the route according to your GoRouter setup
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> MyBottomNavigationBar())) ;
     } catch (e) {
       UtilsFunctions.showFlushBar(context, true, "Failed to login: ${e.toString()}");
       _setError("${e.toString()}");
