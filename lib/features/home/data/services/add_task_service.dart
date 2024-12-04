@@ -8,7 +8,7 @@ class AddTaskService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Add a new task to the database
-  Future<void> writeTask(String title, String description, String category, String priority, String time) async {
+  Future<void> writeTask(String title, String description, String category, String priority, String time, bool isDone) async {
     try {
       // Get the current user
       User? user = _auth.currentUser;
@@ -28,6 +28,7 @@ class AddTaskService {
         "category": category,
         "priority": priority,
         "time": time,
+        "isDone": isDone
       });
 
       print("Task added successfully!");
@@ -116,7 +117,7 @@ class AddTaskService {
   }
 
   // Remove a task from the database
-  Future<void> removeTask(String taskId) async {
+  Future<void> removeTask(int taskId) async {
     try {
       User? user = _auth.currentUser;
 
@@ -126,34 +127,64 @@ class AddTaskService {
       }
 
       // Delete the task from the user's tasks node
-      await _taskDatabase.child(user.uid).child(taskId).remove();
+      await _taskDatabase.child(user.uid).child(taskId.toString()).remove();
       print("Task removed successfully!");
     } catch (e) {
       print("Error removing task: $e");
     }
   }
 
-    Future<void> updateTask(String taskId, String title, String description, String category, String priority, String time) async {
-    try {
-      User? user = _auth.currentUser;
+    Future<void> updateTask(
+  String title,
+  String description,
+  String category,
+  String priority,
+  String time,
+  bool isDone,
+) async {
+  try {
+    User? user = _auth.currentUser;
 
-      if (user == null) {
-        print("No user is logged in.");
-        return;
-      }
+    if (user == null) {
+      print("No user is logged in.");
+      return;
+    }
 
-      // Update the task data under the user's tasks node
-      await _taskDatabase.child(user.uid).child(taskId).update({
-        "title": title,
-        "description": description,
-        "category": category,
-        "priority": priority,
-        "time": time,
+    // Fetch all tasks for the current user
+    final userTasksSnapshot = await _taskDatabase.child(user.uid).get();
+
+    if (userTasksSnapshot.exists) {
+      final tasksMap = userTasksSnapshot.value as Map<dynamic, dynamic>;
+
+      // Find the key of the task with the matching title
+      String? matchingKey;
+      tasksMap.forEach((key, value) {
+        if (value["title"] == title) {
+          matchingKey = key;
+        }
       });
 
-      print("Task updated successfully!");
-    } catch (e) {
-      print("Error updating task: $e");
+      if (matchingKey != null) {
+        // Update the task with the matching key
+        await _taskDatabase.child(user.uid).child(matchingKey.toString()).update({
+          "title": title,
+          "description": description,
+          "category": category,
+          "priority": priority,
+          "time": time,
+          "isDone": isDone,
+        });
+
+        print("Task updated successfully!");
+      } else {
+        print("No task found with the title: $title");
+      }
+    } else {
+      print("No tasks found for the user.");
     }
+  } catch (e) {
+    print("Error updating task: $e");
   }
+}
+
 }

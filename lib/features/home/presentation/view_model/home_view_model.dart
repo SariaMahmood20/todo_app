@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/app/utils/utils_functions.dart';
 import 'package:todo_app/features/home/data/models/task_model.dart';
 import 'package:todo_app/features/home/data/services/add_task_service.dart';
+import 'package:todo_app/features/home/presentation/view/home_view.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final AddTaskService _taskService = AddTaskService();
@@ -14,6 +15,10 @@ class HomeViewModel extends ChangeNotifier {
   // List of filtered tasks
   List<TaskModel> _filteredTasks = [];
   List<TaskModel> get filteredTasks => _filteredTasks;
+
+  //Date Filter
+  List<TaskModel> _dateFilteredTasks = [];
+  List<TaskModel> get dateFilteredTasks => _dateFilteredTasks;
 
   // Loading state
   bool _isLoading = false;
@@ -30,11 +35,12 @@ class HomeViewModel extends ChangeNotifier {
     required String category,
     required String priority,
     required String time,
+    bool isDone = false,
     required BuildContext context,
   }) async {
     _setLoading(true);
     try {
-      await _taskService.writeTask(title, description, category, priority, time);
+      await _taskService.writeTask(title, description, category, priority, time, isDone);
       UtilsFunctions.showFlushBar(context, false, "Task Added Successfully!");
       await fetchTasks(); // Refresh tasks after adding
     } catch (e) {
@@ -81,17 +87,17 @@ class HomeViewModel extends ChangeNotifier {
 
   // Update a task
   Future<void> updateTask({
-    required String taskId,
     required String title,
     required String description,
     required String category,
     required String priority,
     required String time,
+    bool isDone = false,
     required BuildContext context,
   }) async {
     _setLoading(true);
     try {
-      await _taskService.updateTask(taskId, title, description, category, priority, time);
+      await _taskService.updateTask(title, description, category, priority, time, isDone);
       UtilsFunctions.showFlushBar(context, false, "Task Updated Successfully!");
       await fetchTasks(); // Refresh tasks after updating
     } catch (e) {
@@ -102,7 +108,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   // Delete a task
-  Future<void> deleteTask(String taskId, BuildContext context) async {
+  Future<void> deleteTask(int taskId, BuildContext context) async {
     _setLoading(true);
     try {
       await _taskService.removeTask(taskId);
@@ -113,6 +119,11 @@ class HomeViewModel extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
+  }
+
+  Future<List<dynamic>> dateFilter(String date)async{
+    _dateFilteredTasks = _tasks.where((task)=> task.time == date).toList();
+    return _dateFilteredTasks;
   }
 
   // Helper: Set loading state

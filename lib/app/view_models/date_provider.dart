@@ -38,17 +38,18 @@ class DateProvider with ChangeNotifier {
 
   DateTime deadlineDate = DateTime.now();
 
-  String get finalDate => deadlineDate.toString();
+  String finalDate = "";
 
   Future<void> pickDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: deadlineDate,
-      firstDate: deadlineDate.subtract(const Duration(days: 7)),
+      firstDate: deadlineDate.subtract(const Duration(days: 0)),
       lastDate: DateTime(2200),
     );
     if (pickedDate != null && pickedDate != deadlineDate) {
       deadlineDate = pickedDate;
+      finalDate = formatDate(deadlineDate);
       notifyListeners();
     }
   }

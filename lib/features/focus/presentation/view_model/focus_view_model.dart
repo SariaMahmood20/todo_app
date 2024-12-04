@@ -46,10 +46,11 @@ class FocusViewModel extends ChangeNotifier{
     }
   }
 
-  Future<void> addFocus(FocusModel focus)async{
+  Future<void> addFocus(DateTime day, DateTime minutes)async{
     _setLoading(true);
     try{
-      await _focusServices.addFocus(focus);
+      await _focusServices.addFocus(day, minutes);
+      FocusModel focus = FocusModel(day: day, time: minutes);
       _focuses.add(focus);
       notifyListeners();
     }catch(e){

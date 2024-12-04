@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart'; // Add GoRouter import
 
 import 'package:todo_app/app/navigation/route_names.dart';
@@ -9,6 +11,7 @@ import 'package:todo_app/app/views/widgets/bottom_navigation_bar.dart';
 import 'package:todo_app/features/auth/data/services/auth_services.dart';
 
 class AuthViewModel extends ChangeNotifier {
+  File? image;
   final AuthServices _authServices = AuthServices();
   bool _isLoading = false;
   String? _errorMessage;

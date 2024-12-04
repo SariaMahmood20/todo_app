@@ -12,7 +12,7 @@ class Routes{
     routes: [
       GoRoute(
         name: RouteNames.splash,
-        path: '/',
+        path: '/splash',
         builder: (context, state)=>const SplashScreen()
         ),
       GoRoute(
@@ -22,7 +22,7 @@ class Routes{
         ),
         GoRoute(
         name: RouteNames.login,
-        path: '/login',
+        path: '/',
         builder: (context, state)=>const LoginView()
         ),
         GoRoute(
@@ -35,6 +35,7 @@ class Routes{
         path: '/navigation',
         builder: (context, state)=>MyBottomNavigationBar()
         ),
+          
     ]
     );
 }

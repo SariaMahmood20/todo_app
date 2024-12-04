@@ -6,14 +6,14 @@ class FocusService{
   final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> addFocus(FocusModel focus)async{
+  Future<void> addFocus(DateTime day, DateTime minutes)async{
     try{
       User? user = _firebaseAuth.currentUser;
       if(user==null){
         return;
       }
       String focusId = _firebaseDatabase.ref("focuses").push().key!;
-      await _firebaseDatabase.ref("focuses").child(user.uid).child(focusId).set(focus.toJson());
+      await _firebaseDatabase.ref("focuses").child(user.uid).child(focusId).set({"Day": day, "Minutes": minutes});
     }catch(e){
       rethrow;
     }
