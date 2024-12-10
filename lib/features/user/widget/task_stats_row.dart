@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:todo_app/app/resources/app_strings.dart';
 import 'package:todo_app/app/resources/app_theme.dart';
 
 class TaskStatsRow extends StatelessWidget {
@@ -19,8 +18,8 @@ class TaskStatsRow extends StatelessWidget {
           height: 50.h,
           width: 150.w,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15)
+            color: Colors.white24,
+            borderRadius: BorderRadius.circular(5)
           ),
           child: Center(
             child: Text(
@@ -30,11 +29,11 @@ class TaskStatsRow extends StatelessWidget {
           ),
         ),
         Container(
-          height: 40.h,
+          height: 50.h,
           width: 150.w,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15)
+            color: Colors.white24,
+            borderRadius: BorderRadius.circular(5)
           ),
           child: Center(
             child: Text(

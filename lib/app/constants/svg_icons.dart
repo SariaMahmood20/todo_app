@@ -6,7 +6,7 @@ class SvgIcons{
   static String calenderInactive = "${_iconsPath}calendar_inactive.svg";
   static String categoryTag = "${_iconsPath}category_tag.svg";
   static String changeColor = "${_iconsPath}change_color.svg";
-  static String changeLanguage = "${_iconsPath}change_lanaguage.svg";
+  static String changeLanguage = "${_iconsPath}change_language.svg";
   static String changePassword = "${_iconsPath}change_password.svg";
   static String changePfp = "${_iconsPath}change_pfp.svg";
   static String createNew = "${_iconsPath}create_new.svg";
@@ -14,7 +14,7 @@ class SvgIcons{
   static String design = "${_iconsPath}design.svg";
   static String edit = "${_iconsPath}edit.svg";
   static String faq = "${_iconsPath}faq.svg";
-  static String feeback = "${_iconsPath}feeback.svg";
+  static String feeback = "${_iconsPath}feedback.svg";
   static String fingerPrint = "${_iconsPath}finger_print.svg";
   static String focusActive = "${_iconsPath}focus_active.svg";
   static String focusInactive = "${_iconsPath}focus_inactive.svg";

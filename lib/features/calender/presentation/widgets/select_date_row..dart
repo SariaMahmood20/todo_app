@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 import 'package:todo_app/app/resources/app_strings.dart';
-import 'package:todo_app/app/utils/utils_functions.dart';
-import 'package:todo_app/app/view_models/date_provider.dart';
 import 'package:todo_app/app/resources/app_theme.dart';
 import 'package:todo_app/app/constants/svg_icons.dart';
 

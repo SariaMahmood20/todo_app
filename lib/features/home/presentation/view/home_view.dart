@@ -81,7 +81,6 @@ class _HomeViewState extends State<HomeView> {
                       final task = searchController.text.isEmpty
                           ? taskProvider.tasks[index]
                           : taskProvider.filteredTasks[index];
-                      final tasks = taskProvider.tasks;
                       return Column(
                         children: [
                           TaskCard(

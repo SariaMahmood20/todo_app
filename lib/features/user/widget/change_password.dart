@@ -8,21 +8,22 @@ import 'package:todo_app/app/views/widgets/custom_form_field.dart';
 import 'package:todo_app/app/views/widgets/button.dart';
 import 'package:todo_app/features/auth/presentation/view_model/user_details_view_model.dart';
 
-class ChangeAccountName extends StatefulWidget {
-
-  const ChangeAccountName({super.key,});
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({super.key});
 
   @override
-  State<ChangeAccountName> createState() => _ChangeAccountNameState();
+  State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _ChangeAccountNameState extends State<ChangeAccountName> {
-  final TextEditingController controller = TextEditingController();
+class _ChangePasswordState extends State<ChangePassword> {
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    controller.dispose();
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -31,25 +32,29 @@ class _ChangeAccountNameState extends State<ChangeAccountName> {
       builder: (context, userProvider, child){
         return AlertDialog(
         title: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(AppStrings.changeAccountName, style: styles.lato16w700,),
+            Text(
+              AppStrings.changeAccountPassword,
+              style: styles.lato16w700,
+            ),
             SizedBox(height: 7.h,),
             const Divider()
           ],
         ),
         content: SizedBox(
-          height: 150.h,
+          height: 220.h,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomFormField(controller: controller, isPassword: false, hintText: AppStrings.changeAccountName, labelText: "Account Name"),
+              CustomFormField(controller: _oldPasswordController, isPassword: false, hintText: AppStrings.enterOldPassword, labelText: "Old Password"),
+              SizedBox(height: 20.h,),
+              CustomFormField(controller: _newPasswordController, isPassword: false, hintText: AppStrings.enterNewPassword, labelText: "New Password"),
               SizedBox(height: 40.h,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TextButton(onPressed: (){}, child: Text(AppStrings.cancel, style: styles.lato16w400.copyWith(color: styles.neutralColor),)),
-                  Button(width: 120.w, buttonText: AppStrings.edit, onPressed: (){userProvider.updateUser(username: controller.text);})
+                  TextButton(onPressed: (){}, child: Text(AppStrings.cancel, style: styles.lato16w600.copyWith(color: styles.neutralColor),)),
+                  Button(width: 150.w, buttonText: AppStrings.edit, onPressed: (){userProvider.updatePassword(context, _oldPasswordController.text, _newPasswordController.text);})
                 ],
               )
             ],

@@ -1,21 +1,21 @@
 class FocusModel {
-  String? id; // Make id nullable for cases where it is not provided
-  DateTime day;
-  DateTime time;
+  String? id; // Nullable id for cases where it is not provided
+  String day; // Day remains a DateTime
+  int time; // Duration in seconds or minutes
 
   // Constructor
   FocusModel({
     this.id,
     required this.day,
-    required this.time,
+    required this.time, // Accepts time as an int
   });
 
   // Factory method to create a FocusModel from a JSON object
   factory FocusModel.fromJson(Map<String, dynamic> json) {
     return FocusModel(
       id: json['id'] as String?, // Parse id if it exists
-      day: DateTime.parse(json['Day']), // Parse 'Day' as DateTime
-      time: DateTime.parse(json['Time']), // Parse 'Time' as DateTime
+      day: json['Day'] as String, // Parse 'Day' as DateTime
+      time: json['Time'] as int, // Parse 'Time' as an int
     );
   }
 
@@ -23,8 +23,8 @@ class FocusModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id, // Include id in JSON if it exists
-      'Day': day.toIso8601String(), // Convert DateTime to ISO8601 string
-      'Time': time.toIso8601String(), // Convert DateTime to ISO8601 string
+      'Day': day, // Convert DateTime to ISO8601 string
+      'Time': time, // Include time as an int
     };
   }
 }

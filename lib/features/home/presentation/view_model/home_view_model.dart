@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/app/utils/utils_functions.dart';
 import 'package:todo_app/features/home/data/models/task_model.dart';
 import 'package:todo_app/features/home/data/services/add_task_service.dart';
-import 'package:todo_app/features/home/presentation/view/home_view.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final AddTaskService _taskService = AddTaskService();
@@ -19,6 +18,14 @@ class HomeViewModel extends ChangeNotifier {
   //Date Filter
   List<TaskModel> _dateFilteredTasks = [];
   List<TaskModel> get dateFilteredTasks => _dateFilteredTasks;
+
+  //Done Filter
+  List<TaskModel> _doneTasks = [];
+  List<TaskModel> get doneTasks => _doneTasks;
+
+  //Undone Filter
+  List<TaskModel> _undoneTasks = [];
+  List<TaskModel> get undoneTasks => _undoneTasks;
 
   // Loading state
   bool _isLoading = false;
@@ -124,6 +131,16 @@ class HomeViewModel extends ChangeNotifier {
   Future<List<dynamic>> dateFilter(String date)async{
     _dateFilteredTasks = _tasks.where((task)=> task.time == date).toList();
     return _dateFilteredTasks;
+  }
+
+  Future<List<dynamic>> doneFilter()async{
+    _doneTasks = _tasks.where((task)=>task.isDone == true).toList();
+    return _doneTasks;
+  }
+
+  Future<List<dynamic>> undoneFilter()async{
+    _undoneTasks = _tasks.where((task)=>task.isDone == false).toList();
+    return _undoneTasks;
   }
 
   // Helper: Set loading state

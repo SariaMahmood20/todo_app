@@ -50,6 +50,7 @@ class AppStrings{
   static String music = "Music";
   static String health = "Health";
   static String movie = "Movie";
+  static String stopFocus = "Stop Focusing";
   static String home = "Home";
   static String create = "Create";
   static String addCategory = "Add Category";

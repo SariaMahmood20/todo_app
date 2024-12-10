@@ -11,6 +11,7 @@ import 'package:todo_app/features/home/presentation/view/home_view.dart';
 import 'package:todo_app/app/utils/utils_functions.dart';
 import 'package:todo_app/features/focus/presentation/view/focus_view.dart';
 import 'package:todo_app/features/calender/presentation/view/calender_view.dart';
+import 'package:todo_app/features/user/view/user_view.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({super.key});
@@ -48,9 +49,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   final List<Widget> pages = [
     HomeView(),
-    CalenderView(),
+    const CalenderView(),
     FocusView(),
-    Container(color: Colors.green,),
+    const UserView()
   ];
 
   final List<String> titles = [

@@ -5,12 +5,10 @@ import 'package:todo_app/app/resources/app_theme.dart'; // Import the new AppThe
 import 'package:provider/provider.dart';
 
 import 'package:todo_app/app/navigation/routes.dart';
-import 'package:todo_app/app/view_models/date_provider.dart';
 import 'package:todo_app/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:todo_app/features/auth/presentation/view_model/local_auth_view_model.dart';
-import 'package:todo_app/features/calender/presentation/view_model/date_widget_view_model.dart';
-import 'package:todo_app/features/focus/presentation/view/focus_view.dart';
 import 'package:todo_app/features/home/presentation/view_model/home_view_model.dart';
+import 'package:todo_app/features/auth/presentation/view_model/user_details_view_model.dart';
 import 'package:todo_app/features/focus/presentation/view_model/focus_view_model.dart';
 
 void main() async {
@@ -43,7 +41,7 @@ class MainApp extends StatelessWidget {
             ChangeNotifierProvider(create: (_)=>HomeViewModel()),
             ChangeNotifierProvider(create: (_)=>AuthViewModel()),
             ChangeNotifierProvider(create: (_)=>LocalAuthViewModel()),
-            ChangeNotifierProvider(create: (_)=>DateWidgetViewModel()),
+            ChangeNotifierProvider(create: (_)=>UserDetailsViewModel()),
             ChangeNotifierProvider(create: (_)=>FocusViewModel())
           ],
           child: MaterialApp.router(
